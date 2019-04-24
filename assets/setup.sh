@@ -15,6 +15,29 @@ chmod 755 /sbin/chkconfig &&
 cat /assets/oracle-xe_11.2.0-1.0_amd64.deba* > /assets/oracle-xe_11.2.0-1.0_amd64.deb &&
 dpkg --install /assets/oracle-xe_11.2.0-1.0_amd64.deb &&
 
+cat << EOF > /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
+SID_LIST_LISTENER =
+	(SID_LIST =
+		(SID_DESC =
+			(SID_NAME = PLSExtProc)
+			(ORACLE_HOME = /u01/app/oracle/product/11.2.0/xe)
+			(PROGRAM = extproc)
+		)
+		(SID_DESC =
+			(SID_NAME = XE)
+			(ORACLE_HOME = /u01/app/oracle/product/11.2.0/xe)
+			(GLOBAL_DBNAME = XE)
+		)
+
+	)
+
+LISTENER =
+	(DESCRIPTION_LIST =
+		(DESCRIPTION =
+			(ADDRESS = (PROTOCOL = IPC) (KEY = EXTPROC_FOR_XE))
+			(ADDRESS = (PROTOCOL = TCP) (HOST = localhost) (PORT = 1521))
+EOF
+
 # Backup listener.ora as template
 cp /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora.tmpl &&
 cp /u01/app/oracle/product/11.2.0/xe/network/admin/tnsnames.ora /u01/app/oracle/product/11.2.0/xe/network/admin/tnsnames.ora.tmpl &&
