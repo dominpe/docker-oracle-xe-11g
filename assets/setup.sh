@@ -36,6 +36,9 @@ LISTENER =
 		(DESCRIPTION =
 			(ADDRESS = (PROTOCOL = IPC) (KEY = EXTPROC_FOR_XE))
 			(ADDRESS = (PROTOCOL = TCP) (HOST = localhost) (PORT = 1521))
+
+DIAG_ADR_ENABLED = off
+TRACE_LEVEL_listener = admin
 EOF
 
 # Backup listener.ora as template
